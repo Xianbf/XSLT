@@ -1,0 +1,98 @@
+-------------------------------------------------------------------
+A) Convertir os atributos en etiquetas
+-------------------------------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+
+<xsl:template match="/">
+<museos>
+<xsl:apply-templates />
+</museos>
+</xsl:template>
+
+<xsl:template match="museos/museo">
+<museo>
+<nombre><xsl:value-of select="@nome" /></nombre>
+<cidade><xsl:value-of select="@cidade" /></cidade>
+<pais><xsl:value-of select="@pais" /></pais>
+</museo>
+
+</xsl:template>
+</xsl:stylesheet>
+
+-------------------------------------------------------------------
+B) Convertir algúns atributos en etiquetas
+-------------------------------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+
+<xsl:template match="/">
+<museos><xsl:apply-templates /></museos>
+</xsl:template>
+
+<xsl:template match="museos/museo">
+<museo><xsl:attribute name="ubicacion"><xsl:value-of select="@cidade" />&#160;(<xsl:value-of select="@pais" />)</xsl:attribute><xsl:value-of select="@nome" /></museo>
+</xsl:template>
+
+</xsl:stylesheet>
+
+-------------------------------------------------------------------
+C) Cambiar a estructura do documento e convertir algúns atributos en etiquetas
+-------------------------------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+
+<xsl:template match="/">
+<cidades><xsl:apply-templates /></cidades>
+</xsl:template>
+
+<xsl:template match="museos/museo">
+  <cidade>
+    <xsl:attribute name="nome"><xsl:value-of select="@cidade" /></xsl:attribute>
+    <pais><xsl:value-of select="@pais" /></pais>
+    <museo><xsl:value-of select="@nome" /></museo>
+  </cidade>
+</xsl:template>
+
+</xsl:stylesheet>
+
+-------------------------------------------------------------------
+D) Cambiar a estrutura do documento
+-------------------------------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+
+<xsl:template match="/">
+<paises><xsl:apply-templates /></paises>
+</xsl:template>
+
+<xsl:template match="museos/museo">
+  <pais><xsl:attribute name="nombre"><xsl:value-of select="@pais" /></xsl:attribute>
+  <cidade><xsl:attribute name="nome"><xsl:value-of select="@cidade" /></xsl:attribute>
+  <museo><xsl:attribute name="nome"><xsl:value-of select="@nome" /></xsl:attribute></museo>
+  </cidade>
+  </pais>
+</xsl:template>
+
+</xsl:stylesheet>
+
+-------------------------------------------------------------------
+E) Cambiar a estrutura do documento
+-------------------------------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+
+<xsl:template match="/">
+<lugares><xsl:apply-templates /></lugares>
+</xsl:template>
+
+<xsl:template match="museos/museo">
+  <lugar><xsl:attribute name="tipo"><xsl:text>museo</xsl:text></xsl:attribute>
+	<ubicacion><xsl:attribute name="nome"><xsl:text>cidade</xsl:text></xsl:attribute><xsl:value-of select="@cidade" /></ubicacion>
+	<ubicacion><xsl:attribute name="nome"><xsl:text>pais</xsl:text></xsl:attribute><xsl:value-of select="@pais" /></ubicacion>
+	<nome><xsl:value-of select="@nome" /></nome>
+  </lugar>
+</xsl:template>
+
+</xsl:stylesheet>
+-------------------------------------------------------------------
